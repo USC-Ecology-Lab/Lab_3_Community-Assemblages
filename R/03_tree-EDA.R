@@ -4,6 +4,10 @@
 
 
 # load in the data 
+tree_sp_riv_5m <- read.csv('./data/tree_sp_riv_5m.csv')
+tree_cat_riv_5m <- read.csv('./data/tree_cat_5m.csv')
+tree_cat_riv_subregion <- read.csv('./data/tree_cat_subregion.csv')
+tree_raw <- read.csv('./data/tree_raw.csv')
 
 
 # individual regressions of RIV by tree species:
@@ -46,5 +50,32 @@ abline(dbh_mod)
 hardwood_subregion <- tree_cat_riv_subregion |> 
   filter(Tree_cat == 'Hardwood')
 
+aov(riv ~ Subregion, data = hardwood_subregion) |> 
+  summary()
+
+pine_subregion <- tree_cat_riv_subregion |> 
+  filter(Tree_cat == 'Pine')
+
+aov(riv ~ Subregion, data = pine_subregion) |> 
+  summary()
+
+oak_sub <- tree_cat_riv_subregion |> 
+  filter(Tree_cat == 'oak')
+
+aov(riv ~ Subregion, data = oak_sub) |> 
+  summary()
+
+# Two-way anova on the whole system:
 aov(riv ~ Subregion + Tree_cat + Subregion*Tree_cat, data = tree_cat_riv_subregion) |> 
   summary()
+
+
+### What about just the abundance of trees?
+
+tree_abund <- tree_raw |> 
+  group_by(Subregion, transect_id, Tree_cat) |> 
+  summarize(num_trees = length(Tree_cat))
+
+
+hardwood_abund <- tree_abund[which(tree_abund$Tree_cat == 'Hardwood'),]
+kruskal.test(hardwood_abund$num_trees ~ hardwood_abund$Subregion)
