@@ -8,6 +8,11 @@ library(dplyr)
 
 tree_raw <- read.csv('./data/tree_raw.csv')
 
+tree_raw$Subregion <- tolower(tree_raw$Subregion)
+tree_raw$Tree_id <- tolower(tree_raw$Tree_id)
+tree_raw$Tree_cat <- tolower(tree_raw$Tree_cat)
+
+write.csv(tree_raw, './data/tree_raw.csv')
 
 # calculate Relative abundance value ##########
 
