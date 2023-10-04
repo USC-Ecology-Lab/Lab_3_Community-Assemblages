@@ -12,7 +12,7 @@ tree_raw$Subregion <- tolower(tree_raw$Subregion)
 tree_raw$Tree_id <- tolower(tree_raw$Tree_id)
 tree_raw$Tree_cat <- tolower(tree_raw$Tree_cat)
 
-write.csv(tree_raw, './data/tree_raw.csv')
+write.csv(tree_raw, './data/tree_raw.csv', row.names = F)
 
 # calculate Relative abundance value ##########
 

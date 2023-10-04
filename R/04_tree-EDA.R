@@ -23,6 +23,9 @@ kruskal.test(Num ~ Sampling_tree, data = hymenoptera_abund)
 aov(Num ~ Region + Sampling_tree, data = hymenoptera_abund) |> 
   summary()
 
+
+
+
 ###
 # nmds
 ###
